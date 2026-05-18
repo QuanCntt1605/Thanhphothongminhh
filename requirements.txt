@@ -1,0 +1,16 @@
+# Thư viện chính
+opencv-python>=4.5.0          # Xử lý video/ảnh
+mediapipe>=0.8.0              # Nhận diện tay
+numpy>=1.19.0                 # Tính toán số học
+PyYAML>=5.4.0                 # Đọc cấu hình YAML
+
+# Thư viện tùy chọn (cho mở rộng)
+# pyttsx3>=2.90              # Phát tiếng (text-to-speech)
+# python-dotenv>=0.19.0      # Quản lý biến môi trường
+# pillow>=8.0.0              # Xử lý ảnh nâng cao
+# pytest>=7.0.0              # Unit testing
+
+# Ghi chú cách cài:
+# pip install -r requirements.txt
+# hoặc
+# pip install opencv-python mediapipe numpy PyYAML

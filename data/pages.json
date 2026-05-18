@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Thông tin sân bay",
+    "content": "HÃY CHÀO MỪNG ĐẾN SÂN BAY QUỐC TẾ\n                \nHƯỚNG DẪN:\n• Phòng chờ: Tầng 1\n• Nhà vệ sinh: Kế bên quầy check-in\n• Cửa hàng miễn thuế: Tầng 2\n• Quán ăn: Tầng 2, khu vực C\n• Trạm cấp cứu: Bên cạnh sảnh chính\n\nLỊCH BAY HÔMNAY:\n→ VN101 Hà Nội 08:45 (Gate 5)\n→ VN202 TP.HCM 10:30 (Gate 7)\n→ VN303 Đà Nẵng 12:15 (Gate 3)",
+    "images": null
+  },
+  {
+    "title": "Bản đồ trung tâm thương mại",
+    "content": "BẢNG DANH SÁCH SHOP\n                \nTẦNG 1 - THỰC PHẨM & QUẦN ÁO:\n✓ Big C - Siêu thị (Khu A)\n✓ Zara - Thời trang (Khu B)\n✓ H&M - Quần áo (Khu B)\n✓ Starbucks - Cà phê (Khu C)\n\nTẦNG 2 - ĐIỆN TỬ & GIẢI TRÍ:\n✓ FPT Shop - Điện tử\n✓ Apple Store - Quả táo\n✓ CGV Cinemas - Rạp chiếu phim\n✓ Game Zone - Giải trí\n\nTẦNG 3 - NHƯNG HỌC & SPA:\n✓ Thư viện - Đọc sách\n✓ Yoga Studio - Tập yoga\n✓ Thai Massage - Massage Thái",
+    "images": null
+  },
+  {
+    "title": "Thông tin bệnh viện",
+    "content": "BỆNH VIỆN QUỐC TẾ\n                \nPHÒNG KHÁM:\n🏥 Khoa ngoài: Tầng 2, phòng 201-210\n🏥 Khoa trong: Tầng 2, phòng 211-220\n🏥 Nhi khoa: Tầng 3, phòng 301-310\n🏥 Sản phụ khoa: Tầng 3, phòng 311-320\n🏥 Phòng mổ: Tầng 4 (Chỉ nhân viên)\n\nGIỜ LÀM VIỆC:\n📞 Thứ 2 - Thứ 6: 7:00 - 18:00\n📞 Thứ 7: 7:00 - 12:00\n📞 Chủ nhật: NGHỈ\n\nLIÊN HỆ:\nĐường dây nóng: 1900-1234",
+    "images": null
+  },
+  {
+    "title": "Thời khoá biểu trường học",
+    "content": "TRƯỜNG ĐẠI HỌC CÔNG NGHỆ\n                \nLỚP HỌC THỨ HAI:\n🕐 07:00 - 08:30: Nhập môn CNPM\n🕐 08:45 - 10:15: Lập trình Java\n🕐 10:30 - 12:00: Cơ sở dữ liệu\n\nLỚP HỌC THỨ BA:\n🕐 07:00 - 08:30: Web Development\n🕐 08:45 - 10:15: Thiết kế giao diện\n🕐 10:30 - 12:00: Quản lý dự án\n\nLỚP HỌC THỨ TƯ:\n🕐 07:00 - 08:30: Machine Learning\n🕐 08:45 - 10:15: Bảo mật mạng\n🕐 10:30 - 12:00: Kiểm thử phần mềm\n\nSINH VIÊN ĐƯỢC ỐN TRONG THỜI GIAN HỌC",
+    "images": null
+  },
+  {
+    "title": "Giá vé xe buýt",
+    "content": "HỌC GIÁ VÉ XE BUÝT CÔNG CỘNG\n                \nLOẠI VÉ HÀNG NGÀY:\n🚌 Vé lẻ: 5,000 VNĐ / chuyến\n🚌 Vé tháng: 300,000 VNĐ / người\n🚌 Vé học sinh: 150,000 VNĐ / tháng\n🚌 Vé người cao tuổi: Miễn phí\n\nTUYẾN CHÍNH:\n#1: Trung tâm → Sân bay (50 phút)\n#2: Trung tâm → Bến xe (45 phút)\n#3: Trung tâm → Đại học (30 phút)\n#4: Trung tâm → Bệnh viện (25 phút)\n\nGIỜ HOẠT ĐỘNG:\nTừ 05:00 - 22:00 hàng ngày\nMỗi tuyến cứ 10-15 phút một chuyến",
+    "images": null
+  }
+]
