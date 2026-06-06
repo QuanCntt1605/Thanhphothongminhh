@@ -90,53 +90,11 @@ python main.py --config config.yaml --camera 0
 | **B** | Chuyển trang trước |
 | **Q** hoặc **ESC** | Thoát chương trình |
 
----
 
-## 📝 Cấu trúc file dữ liệu (data/pages.json)
 
-```json
-[
-  {
-    "title": "Tiêu đề trang",
-    "content": "Nội dung text của trang, hỗ trợ ký tự Unicode",
-    "images": null
-  },
-  {
-    "title": "Trang có hình ảnh",
-    "content": "Nội dung kèm hình ảnh",
-    "images": ["path/to/image.png"]
-  }
-]
+```
 ```
 
----
-
-## 🔧 Cấu hình (config.yaml)
-
-Bạn có thể tùy chỉnh các thông số sau:
-
-```yaml
-# Độ phân giải màn hình
-display_width: 1280
-display_height: 720
-
-# Độ phân giải camera
-camera_width: 640
-camera_height: 480
-camera_fps: 30
-
-# Độ tin cậy phát hiện (0.0 - 1.0)
-# Giá trị cao hơn = chính xác hơn nhưng chậm hơn
-min_detection_confidence: 0.5
-min_tracking_confidence: 0.5
-
-# Ngưỡng phát hiện cử chỉ (pixels)
-swipe_threshold: 50
-zoom_threshold: 20
-scroll_threshold: 30
-```
-
----
 
 ## 📊 Module & Chức năng
 
@@ -178,23 +136,6 @@ scroll_threshold: 30
 
 ---
 
-## 🐛 Khắc phục sự cố
-
-### Lỗi: "Camera not found"
-```bash
-# Kiểm tra camera
-# Windows:
-ls COM*  # Hoặc kiểm tra Device Manager
-
-# Thử camera khác
-python main.py --camera 1
-```
-
-### Lỗi: "ModuleNotFoundError: No module named 'mediapipe'"
-```bash
-pip install mediapipe opencv-python numpy pyyaml
-```
-
 ### Nhận diện cử chỉ không chính xác
 1. Tăng `min_detection_confidence` trong `config.yaml` (0.5 → 0.7)
 2. Đảm bảo ánh sáng đủ
@@ -204,42 +145,6 @@ pip install mediapipe opencv-python numpy pyyaml
 1. Giảm độ phân giải camera: `camera_width: 320`, `camera_height: 240`
 2. Tăng `min_tracking_confidence` lên 0.7-0.8
 3. Giảm FPS: `camera_fps: 15`
-
----
-
-## 💡 Mở rộng & Tùy chỉnh
-
-### Thêm cử chỉ mới
-Sửa file `gesture.py`, thêm vào `GestureType` enum:
-```python
-class GestureType(Enum):
-    NEW_GESTURE = "new_gesture"
-```
-
-Rồi thêm hàm phát hiện trong `GestureRecognizer`:
-```python
-def detect_new_gesture(self, ...):
-    # Logic phát hiện
-    return GestureType.NEW_GESTURE
-```
-
-### Thêm trang nội dung mới
-```python
-from gui import Page
-from data_manager import DataManager
-
-dm = DataManager()
-page = Page(title="Trang mới", content="Nội dung...")
-dm.add_page(page)
-```
-
-### Thay đổi giao diện
-Sửa màu sắc trong `gui.py`:
-```python
-self.bg_color = (25, 25, 112)      # Thay đổi màu nền
-self.text_color = (255, 255, 255)  # Thay đổi màu text
-self.title_color = (0, 255, 255)   # Thay đổi màu tiêu đề
-```
 
 ---
 
@@ -282,35 +187,9 @@ Dự án này được tạo cho mục đích học tập.
 
 ## 👨‍💼 Tác giả
 
-**Sinh viên** - Hệ thống Thành phố thông minh
+**Đặng Đình Quân** - Thành phố thông minh
 
 ---
 
-## 🤝 Đóng góp
 
-Để cải thiện dự án:
-1. Fork dự án
-2. Tạo branch mới (`git checkout -b feature/AmazingFeature`)
-3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`)
-4. Push lên branch (`git push origin feature/AmazingFeature`)
-5. Mở Pull Request
-
----
-
-## ❓ Câu hỏi thường gặp (FAQ)
-
-**Q: Tôi có thể sử dụng với nhiều camera không?**
-A: Có, sửa `camera_id` trong config hoặc dùng flag `--camera 1`
-
-**Q: Có thể lưu video?**
-A: Có thể sửa code để thêm `cv2.VideoWriter` vào `main.py`
-
-**Q: Có tính năng tiếng nói không?**
-A: Không, nhưng có thể thêm text-to-speech dùng `pyttsx3` hoặc API
-
-**Q: Làm sao để tối ưu hóa nhận diện?**
-A: Xem phần "Khắc phục sự cố" phía trên
-
----
-
-**Chúc bạn thành công! Good luck! 🚀**
+**Thanks for watching! Good luck! 🚀**
