@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Thông Tin Công Cộng - Gesture Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            overflow-x: hidden;
+            padding: 0;
+        }
+
+        .navbar {
+            background: rgba(10, 14, 39, 0.95);
+            border-bottom: 3px solid #00d4ff;
+            padding: 15px 30px;
+            box-shadow: 0 5px 30px rgba(0, 212, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 1.8em;
+            color: #00d4ff;
+            text-shadow: 0 2px 15px rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-subtitle {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 2px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid #00d4ff;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00d4ff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        /* DISPLAY AREA */
+        .display-section {
+            background: rgba(20, 25, 60, 0.8);
+            border: 2px solid #00d4ff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.15);
+            overflow: hidden;
+        }
+
+        .display-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .display-title {
+            color: #00d4ff;
+            font-size: 1.1em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-indicator {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 150, 200, 0.15) 100%);
+            padding: 8px 16px;
+            border-radius: 25px;
+            border: 2px solid #00d4ff;
+            color: #00d4ff;
+            font-size: 0.95em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .page-indicator:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .page-counter {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+        
+        .page-counter-current {
+            color: #00ff88;
+            font-weight: 800;
+            font-size: 1.1em;
+        }
+
+        #displayImage {
+            width: 100%;
+            height: auto;
+            min-height: 500px;
+            border-radius: 10px;
+            background: #000;
+            display: block;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* GESTURE PANEL */
+        .gesture-panel {
+            background: rgba(20, 25, 60, 0.8);
+            border: 2px solid #ff6b35;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 40px rgba(255, 107, 53, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .panel-title {
+            color: #ff6b35;
+            font-size: 0.95em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 12px;
+        }
+
+        .camera-feed {
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            min-height: 150px;
+        }
+
+        canvas#cameraCanvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #cameraVideo {
+            display: none;
+        }
+
+        .gesture-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-box {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid #ff6b35;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: #ff6b35;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        .gesture-control-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 10px;
+            font-size: 0.75em;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-gesture-start {
+            background: linear-gradient(135deg, #32c850 0%, #28a840 100%);
+            color: #fff;
+        }
+
+        .btn-gesture-start:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(50, 200, 80, 0.3);
+        }
+
+        .btn-gesture-stop {
+            background: linear-gradient(135deg, #ff3b30 0%, #cc2f25 100%);
+            color: #fff;
+        }
+
+        .btn-gesture-stop:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 59, 48, 0.3);
+        }
+
+        .gesture-status-box {
+            background: rgba(255, 107, 53, 0.05);
+            border: 1px solid #ff6b35;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.8em;
+            color: #ff6b35;
+            text-align: center;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CONTROL BUTTONS */
+        .controls-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff 0%, #0088ff 100%);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #32c850 0%, #28a840 100%);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(50, 200, 80, 0.2);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(50, 200, 80, 0.3);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff5520 100%);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* INFO CARDS */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: rgba(30, 40, 80, 0.8);
+            border: 2px solid #00d4ff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.1);
+        }
+
+        .info-card-label {
+            color: #888;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .info-card-value {
+            color: #00d4ff;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .info-card.accent {
+            border-color: #ff6b35;
+        }
+
+        .info-card.accent .info-card-value {
+            color: #ff6b35;
+        }
+
+        .info-card.success {
+            border-color: #32c850;
+        }
+
+        .info-card.success .info-card-value {
+            color: #32c850;
+        }
+
+        /* HELP SECTION */
+        .help-section {
+            background: rgba(30, 40, 80, 0.8);
+            border: 2px solid #50c896;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .help-title {
+            color: #50c896;
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .help-item {
+            background: rgba(80, 200, 150, 0.05);
+            border-left: 3px solid #50c896;
+            padding: 12px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .help-item code {
+            background: rgba(80, 200, 150, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #50c896;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        /* FOOTER */
+        footer {
+            background: rgba(10, 14, 39, 0.95);
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 20px 30px;
+            text-align: center;
+            color: #666;
+            font-size: 0.85em;
+            margin-top: auto;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .gesture-panel {
+                position: static;
+            }
+
+            .controls-section {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar h1 {
+                font-size: 1.3em;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .controls-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #displayImage {
+                min-height: 300px;
+            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
+        }
+
+        .display-section, .gesture-panel, .info-card, .help-section {
+            animation: slideIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="navbar-content">
+            <div>
+                <h1>🖥️ BẢNG THÔNG TIN CÔNG CỘNG</h1>
+                <div class="navbar-subtitle">Hệ thống điều khiển bằng cử chỉ tay - Web Version</div>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Hệ thống hoạt động</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- MAIN LAYOUT -->
+        <div class="main-layout">
+            <!-- LEFT: DISPLAY -->
+            <div class="display-section">
+                <div class="display-header">
+                    <div class="display-title">📺 Nội Dung</div>
+                    <div class="page-indicator">
+                        <span class="page-counter-current" id="currentPage">-</span>
+                        <span class="page-counter">/ <span id="totalPages">-</span></span>
+                    </div>
+                </div>
+                <img id="displayImage" src="" alt="Bảng thông tin" />
+            </div>
+
+            <!-- RIGHT: GESTURE CONTROL -->
+            <div class="gesture-panel">
+                <div class="panel-title">🎥 Cử Chỉ Tay</div>
+
+                <div class="camera-feed">
+                    <video id="cameraVideo" playsinline autoplay muted></video>
+                    <canvas id="cameraCanvas"></canvas>
+                </div>
+
+                <div class="gesture-stats">
+                    <div class="stat-box">
+                        <div class="stat-label">Cử Chỉ</div>
+                        <div class="stat-value" id="currentGesture">-</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Tay</div>
+                        <div class="stat-value" id="numHands">0</div>
+                    </div>
+                </div>
+
+                <div class="gesture-control-buttons">
+                    <button class="btn-small btn-gesture-start" id="startGestureBtn" onclick="startGesture()">
+                        ▶️ Bắt Đầu
+                    </button>
+                    <button class="btn-small btn-gesture-stop" id="stopGestureBtn" onclick="stopGesture()" disabled>
+                        ⏹️ Dừng
+                    </button>
+                </div>
+
+                <div class="gesture-status-box" id="gestureStatus">
+                    💤 Nhấp "Bắt Đầu" để kích hoạt
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="controls-section">
+            <button class="btn btn-primary" onclick="prevPage()">⬅️ Trang Trước</button>
+            <button class="btn btn-primary" onclick="nextPage()">Trang Tiếp ➡️</button>
+            <button class="btn btn-success" onclick="scrollUp()">⬆️ Cuộn Lên</button>
+            <button class="btn btn-success" onclick="scrollDown()">⬇️ Cuộn Xuống</button>
+            <button class="btn btn-success" onclick="zoomIn()">🔍 Phóng To</button>
+            <button class="btn btn-success" onclick="zoomOut()">🔍 Thu Nhỏ</button>
+            <button class="btn btn-warning" onclick="resetView()">🔄 Đặt Lại</button>
+        </div>
+
+        <!-- INFO CARDS -->
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-label">Trang Hiện Tại</div>
+                <div class="info-card-value" id="infoCurrentPage">-</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-label">Tổng Trang</div>
+                <div class="info-card-value" id="infoTotalPages">-</div>
+            </div>
+            <div class="info-card accent">
+                <div class="info-card-label">Mức Zoom</div>
+                <div class="info-card-value" id="infoZoomLevel">1.0x</div>
+            </div>
+        </div>
+
+        <!-- HELP SECTION -->
+        <div class="help-section">
+            <div class="help-title">⌨️ Hướng Dẫn Sử Dụng</div>
+            <div class="help-grid">
+                <div class="help-item">
+                    <strong>Phím Mũi Tên:</strong> <code>← →</code> để chuyển trang
+                </div>
+                <div class="help-item">
+                    <strong>Cuộn:</strong> <code>↑ ↓</code> để cuộn nội dung
+                </div>
+                <div class="help-item">
+                    <strong>Zoom:</strong> <code>+ -</code> để phóng to/thu nhỏ
+                </div>
+                <div class="help-item">
+                    <strong>Reset:</strong> <code>R</code> để đặt lại view
+                </div>
+                <div class="help-item">
+                    <strong>Vuốt Trái/Phải:</strong> Chuyển trang trước/sau
+                </div>
+                <div class="help-item">
+                    <strong>Hai Tay Tách/Gần:</strong> Phóng to/thu nhỏ
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Hệ Thống Bảng Thông Tin Công Cộng | Phiên Bản Web | © 2026</p>
+    </footer>
+
+    <script>
+        const UPDATE_INTERVAL = 500;
+        const GESTURE_INTERVAL = 200;
+        const CAMERA_FRAME_INTERVAL = 100;  // 100ms for camera feed (10 FPS)
+        
+        let gestureActive = false;
+        let videoStream = null;
+        let gestureInterval = null;
+        let cameraFrameInterval = null;
+        const video = document.getElementById('cameraVideo');
+        const canvas = document.getElementById('cameraCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Verify canvas exists
+        if (!canvas) {
+            console.error('❌ Canvas element not found!');
+        } else {
+            console.log('✓ Canvas found, setting size...');
+            // Set canvas size
+            canvas.width = 320;
+            canvas.height = 240;
+            // Fill with black background initially
+            if (ctx) {
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#666';
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Camera Ready', canvas.width / 2, canvas.height / 2);
+            }
+        }
+
+        // Display camera frame
+        async function displayCameraFrame() {
+            if (!gestureActive || !canvas || !ctx) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/camera-frame');
+                const data = await response.json();
+                
+                if (data.success && data.frame) {
+                    // Create image from base64
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    
+                    img.onload = function() {
+                        console.log('✓ Frame loaded, drawing to canvas');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    };
+                    
+                    img.onerror = function() {
+                        console.error('❌ Failed to load image');
+                        ctx.fillStyle = '#000';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.fillStyle = '#f00';
+                        ctx.font = '12px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('Camera Error', canvas.width / 2, canvas.height / 2);
+                    };
+                    
+                    img.src = `data:image/jpeg;base64,${data.frame}`;
+                } else {
+                    console.warn('⚠ No frame data received:', data);
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#999';
+                    ctx.font = '12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('No Data', canvas.width / 2, canvas.height / 2);
+                }
+            } catch (error) {
+                console.error('❌ Camera frame error:', error);
+                if (ctx) {
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#f00';
+                    ctx.font = '10px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Error', canvas.width / 2, canvas.height / 2 - 10);
+                    ctx.fillText(error.message.substring(0, 20), canvas.width / 2, canvas.height / 2 + 10);
+                }
+            }
+        }
+
+        // Cập nhật hiển thị
+        async function updateDisplay() {
+            try {
+                const response = await fetch('/api/render');
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('displayImage').src = data.image;
+                    document.getElementById('currentPage').textContent = data.current_page;
+                    document.getElementById('totalPages').textContent = data.total_pages;
+                    document.getElementById('infoCurrentPage').textContent = data.current_page;
+                    document.getElementById('infoTotalPages').textContent = data.total_pages;
+                    document.getElementById('infoZoomLevel').textContent = data.zoom_level;
+                }
+            } catch (error) {
+                console.error('Lỗi cập nhật:', error);
+            }
+        }
+
+        // Gửi hành động
+        async function sendAction(action) {
+            try {
+                const response = await fetch(`/api/action/${action}`, { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateDisplay();
+                }
+            } catch (error) {
+                console.error('Lỗi hành động:', error);
+            }
+        }
+
+        // Xử lý gesture frame
+        async function processGestureFrame() {
+            if (!gestureActive) return;
+
+            try {
+                // Gửi request tới server (server sẽ capture camera trực tiếp)
+                const response = await fetch('/api/gesture', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const gestureName = data.gesture.replace(/_/g, ' ').toUpperCase();
+                    document.getElementById('currentGesture').textContent = 
+                        data.gesture === 'none' ? '-' : gestureName;
+                    document.getElementById('numHands').textContent = data.num_hands;
+                    
+                    if (data.num_hands > 0) {
+                        const status = data.action ? 
+                            `✓ ${data.num_hands} tay | ${gestureName} | ⚡ ${data.action.replace(/_/g, ' ').toUpperCase()}` :
+                            `✓ ${data.num_hands} tay | 🤚 ${gestureName}`;
+                        document.getElementById('gestureStatus').innerHTML = status;
+                    } else {
+                        document.getElementById('gestureStatus').innerHTML = '👋 Đợi cử chỉ...';
+                    }
+                } else {
+                    console.warn('⚠ API returned error:', data);
+                }
+            } catch (error) {
+                console.error('⚠ Gesture error:', error);
+                // Không dừng loop, tiếp tục thử
+            }
+        }
+
+        // Bắt đầu gesture
+        async function startGesture() {
+            try {
+                document.getElementById('gestureStatus').innerHTML = '🔥 Đang khởi tạo...';
+                console.log('🔥 Starting gesture detection...');
+                
+                // Warm up gesture recognizer
+                try {
+                    const warmupResp = await fetch('/api/gesture/warmup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    const warmupData = await warmupResp.json();
+                    if (warmupData.success) {
+                        console.log('✓ Gesture recognizer warmed up');
+                    }
+                } catch (e) {
+                    console.warn('⚠ Warmup warning:', e);
+                }
+                
+                // Bắt đầu camera frame display
+                console.log('📷 Starting camera frame updates...');
+                cameraFrameInterval = setInterval(displayCameraFrame, CAMERA_FRAME_INTERVAL);
+                
+                // Bắt đầu polling gesture (server capture trực tiếp từ camera PC)
+                gestureActive = true;
+                gestureInterval = setInterval(processGestureFrame, GESTURE_INTERVAL);
+                
+                document.getElementById('startGestureBtn').disabled = true;
+                document.getElementById('stopGestureBtn').disabled = false;
+                document.getElementById('gestureStatus').innerHTML = '🎯 Đang theo dõi cử chỉ...';
+                
+                // Initial frame capture
+                console.log('📸 Fetching initial frame...');
+                displayCameraFrame();
+            } catch (error) {
+                console.error('❌ Gesture init error:', error);
+                alert('Lỗi khởi tạo: ' + error.message);
+            }
+        }
+
+        // Dừng gesture
+        function stopGesture() {
+            console.log('⏹️ Stopping gesture detection...');
+            gestureActive = false;
+            if (gestureInterval) clearInterval(gestureInterval);
+            if (cameraFrameInterval) clearInterval(cameraFrameInterval);
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+                videoStream = null;
+            }
+            
+            // Clear canvas
+            if (ctx) {
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            
+            document.getElementById('startGestureBtn').disabled = false;
+            document.getElementById('stopGestureBtn').disabled = true;
+            document.getElementById('gestureStatus').innerHTML = '💤 Nhấp "Bắt Đầu" để kích hoạt';
+            document.getElementById('currentGesture').textContent = '-';
+            document.getElementById('numHands').textContent = '0';
+        }
+
+        // Điều khiển bằng phím
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevPage();
+            else if (e.key === 'ArrowRight') nextPage();
+            else if (e.key === 'ArrowUp') scrollUp();
+            else if (e.key === 'ArrowDown') scrollDown();
+            else if (e.key === '+' || e.key === '=') zoomIn();
+            else if (e.key === '-') zoomOut();
+            else if (e.key.toLowerCase() === 'r') resetView();
+        });
+
+        // Các hàm điều khiển
+        function nextPage() { sendAction('next_page'); }
+        function prevPage() { sendAction('prev_page'); }
+        function zoomIn() { sendAction('zoom_in'); }
+        function zoomOut() { sendAction('zoom_out'); }
+        function scrollUp() { sendAction('scroll_up'); }
+        function scrollDown() { sendAction('scroll_down'); }
+        function resetView() { sendAction('reset'); }
+
+        // Cập nhật ban đầu
+        console.log('✓ Page loaded');
+        updateDisplay();
+        setInterval(updateDisplay, UPDATE_INTERVAL);
+    </script>
+</body>
+</html>

@@ -1,16 +1,22 @@
 # Thư viện chính
 opencv-python>=4.5.0          # Xử lý video/ảnh
-mediapipe>=0.8.0              # Nhận diện tay
-numpy>=1.19.0                 # Tính toán số học
-PyYAML>=5.4.0                 # Đọc cấu hình YAML
+mediapipe>=0.10.35            # Nhận diện tay - FIXED VERSION
+numpy>=1.19.0,<2.0.0          # Tính toán số học (MUST be <2.0 for TensorFlow compatibility)
+tensorflow<2.14               # TensorFlow for MediaPipe tasks API
+PyYAML>=5.4.0        
+protobuf>=4.25.0              # Protocol buffers - compatible với MediaPipe
+Pillow>=9.0.0                 # Vẽ text tiếng Việt đúng cách
+
+# Web version
+Flask>=2.0.0                   # Web framework
+Werkzeug>=2.0.0                # WSGI utilities
 
 # Thư viện tùy chọn (cho mở rộng)
 # pyttsx3>=2.90              # Phát tiếng (text-to-speech)
 # python-dotenv>=0.19.0      # Quản lý biến môi trường
-# pillow>=8.0.0              # Xử lý ảnh nâng cao
 # pytest>=7.0.0              # Unit testing
 
 # Ghi chú cách cài:
 # pip install -r requirements.txt
 # hoặc
-# pip install opencv-python mediapipe numpy PyYAML
+# pip install --upgrade mediapipe opencv-python numpy PyYAML protobuf Pillow Flask

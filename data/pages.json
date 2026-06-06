@@ -23,5 +23,25 @@
     "title": "Giá vé xe buýt",
     "content": "HỌC GIÁ VÉ XE BUÝT CÔNG CỘNG\n                \nLOẠI VÉ HÀNG NGÀY:\n🚌 Vé lẻ: 5,000 VNĐ / chuyến\n🚌 Vé tháng: 300,000 VNĐ / người\n🚌 Vé học sinh: 150,000 VNĐ / tháng\n🚌 Vé người cao tuổi: Miễn phí\n\nTUYẾN CHÍNH:\n#1: Trung tâm → Sân bay (50 phút)\n#2: Trung tâm → Bến xe (45 phút)\n#3: Trung tâm → Đại học (30 phút)\n#4: Trung tâm → Bệnh viện (25 phút)\n\nGIỜ HOẠT ĐỘNG:\nTừ 05:00 - 22:00 hàng ngày\nMỗi tuyến cứ 10-15 phút một chuyến",
     "images": null
+  },
+  {
+    "title": "🎯 Giới thiệu sản phẩm",
+    "content": "HỆ THỐNG BẢNG THÔNG TIN CÔNG CỘNG\nPhiên bản nâng cấp 2026\n\n✨ ĐẶC TÍNH CHÍNH:\n📱 Điều khiển bằng cử chỉ tay không chạm\n🎯 Nhận dạng đa tay với độ chính xác 95%\n⚡ Xử lý real-time 30+ FPS\n🌐 Giao diện web responsive\n🔒 Tương thích nhiều nền tảng\n\n🛠️ CÔNG NGHỆ SỬ DỤNG:\n• MediaPipe: Nhận dạng tay AI hiện đại\n• OpenCV: Xử lý video chuyên nghiệp  \n• Flask: Web framework mạnh mẽ\n• TensorFlow Lite: Model ML tối ưu\n\n💡 ỨNG DỤNG:\n✓ Sân bay, nhà ga, bến xe\n✓ Bệnh viện, trường học\n✓ Trung tâm thương mại\n✓ Nhà hàng, khách sạn\n✓ Bảo tàng, thư viện",
+    "images": null
+  },
+  {
+    "title": "🗺️ Bản đồ & Hướng dẫn",
+    "content": "HƯỚNG DẪN SỬ DỤNG HỆ THỐNG\n\n1️⃣ KHỞI ĐỘNG:\n   • Mở trình duyệt web\n   • Vào địa chỉ: http://127.0.0.1:5000\n   • Nhấp nút \"Bắt Đầu\" để kích hoạt camera\n\n2️⃣ CỬ CHỈ TỰA:\n   ← Vuốt tay sang PHẢI = Trang trước\n   → Vuốt tay sang TRÁI = Trang tiếp theo\n   ↑ Cuộn tay LÊN = Xem nội dung trên\n   ↓ Cuộl tay XUỐNG = Xem nội dung dưới\n\n3️⃣ ZOOM:\n   ⬇️ Hai tay LẠI GẦN = Phóng to (Zoom in)\n   ⬆️ Hai tay TÁCH RA = Thu nhỏ (Zoom out)\n\n4️⃣ PHÍM TẮT:\n   • Mũi tên trái/phải: Chuyển trang\n   • Mũi tên lên/xuống: Cuộn\n   • +/- : Zoom\n   • R: Reset view\n\n💡 MẸOĂNH NHẤT:\n   ✓ Giữ tay trong khung camera\n   ✓ Ánh sáng đủ, không tối\n   ✓ Chuyển động rõ ràng, không quá nhanh",
+    "images": null
+  },
+  {
+    "title": "☎️ Liên hệ & Hỗ trợ",
+    "content": "THÔNG TIN HỢP TÁC & LIÊN HỆ\n\n🏢 CÔNG TY PHÁT TRIỂN:\nTên: Tech Innovation Group\nĐịa chỉ: 123 Đường Công Nghệ, Q.1, TP.HCM\nSĐT: +84 (28) 1234-5678\n\n📧 LIÊN HỆ HỖ TRỢ:\nEmail: support@techgroup.vn\nHotline: 1900-TECH (1900-8324)\nChat live: chat.techgroup.vn\n\n⏰ GIỜ HỖ TRỢ:\nThứ 2 - Thứ 6: 08:00 - 17:30\nThứ 7: 09:00 - 12:00\nChủ nhật & lễ: Đóng cửa\n\n🎓 ĐÀO TẠO & HƯỚNG DẪN:\n• Hướng dẫn sử dụng miễn phí\n• Lắp đặt chuyên nghiệp\n• Hỗ trợ kỹ thuật 24/7\n• Bảo hành 12 tháng\n\n🌐 WEBSITE & MẠNG XÃ HỘI:\nWeb: www.techgroup.vn\nFacebook: facebook.com/techgroup\nLinkedin: linkedin.com/company/techgroup",
+    "images": null
+  },
+  {
+    "title": "🍽️ Danh sách thực đơn",
+    "content": "NHƯNG HÀNG TÀU ĐỘC ĐẮC\nNhà hàng cao cấp - Ẩm thực Á Đông\n\n🥢 MỞ MIỆNG:\n  • Tôm chiên giòn: 85,000 VNĐ\n  • Cánh gà nước tương: 65,000 VNĐ\n  • Cuốn rau tươi: 45,000 VNĐ\n  • Canh chua cá: 75,000 VNĐ\n\n🍚 CƠMVÀ MỲ:\n  • Cơm sốt tiêu đen: 125,000 VNĐ\n  • Phở bò đặc biệt: 95,000 VNĐ\n  • Mỳ cua + cua: 110,000 VNĐ\n  • Cơm chiên Dương Châu: 105,000 VNĐ\n\n🥩 MỒN CHÍNH:\n  • Bò Kobe nướng BBQ: 280,000 VNĐ\n  • Cá tầm nướng nước mắm: 180,000 VNĐ\n  • Cua hoàng đế hấp: 250,000 VNĐ\n  • Tôm hùm sốt ớt: 220,000 VNĐ\n\n🍰 TRÁNG MIỆNG:\n  • Bánh flan trứng: 35,000 VNĐ\n  • Chè 3 màu: 28,000 VNĐ\n  • Kem dâu tây: 42,000 VNĐ\n\n🥤 NƯỚC UỐNG:\n  • Nước chanh tươi: 18,000 VNĐ\n  • Cà phê đen: 22,000 VNĐ\n  • Trà oolong: 25,000 VNĐ",
+    "images": null
   }
 ]

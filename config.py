@@ -28,14 +28,14 @@ class Config:
     camera_id: int = 0
     
     # MediaPipe settings
-    min_detection_confidence: float = 0.5
+    min_detection_confidence: float = 0.5  # Cân bằng giữa nhạy cảm và false positive
     min_tracking_confidence: float = 0.5
     max_num_hands: int = 2
     
-    # Gesture settings
-    swipe_threshold: int = 50      # Pixel
-    zoom_threshold: int = 20        # Pixel
-    scroll_threshold: int = 30      # Pixel
+    # Gesture settings - thresholds thấp hơn để nhạy hơn
+    swipe_threshold: int = 15      # Pixel - giảm từ 50 để nhạy hơn
+    zoom_threshold: int = 10        # Pixel - giảm từ 20
+    scroll_threshold: int = 15      # Pixel - giảm từ 30
     
     # Data settings
     data_dir: str = "data"
