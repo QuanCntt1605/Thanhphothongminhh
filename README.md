@@ -1,5 +1,5 @@
 # NHẬN DIỆN CỬ CHỈ TAY ĐIỀU KHIỂN THIẾT BỊ CÔNG CỘNG
-![Poster dự án](poster1.jpg)
+![Poster dự án](poster.jpg)
 ## 📋 Mô tả dự án
 
 Đây là một hệ thống bảng thông tin điều khiển hoàn toàn bằng cử chỉ tay, không cần chạm vào màn hình. Sử dụng công nghệ MediaPipe để nhận diện tay và các cử chỉ được định nghĩa sẵn.
